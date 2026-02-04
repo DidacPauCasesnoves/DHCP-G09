@@ -1,0 +1,27 @@
+#!/bin/bash
+# Script Instalación Automática DHCP - Grupo 09
+
+ENLACE_RAW="https://raw.githubusercontent.com/DidacPauCasesnoves/DHCP-G09/main/kea-dhcp4.conf.txt"
+
+echo "--- Iniciando Instalación (Grup 09) ---"
+
+# 1. Actualizar sistema
+echo "Actualizando..."
+apt update -y
+
+# 2. Instalar Kea
+echo "Instalando Kea DHCP..."
+apt install -y kea-dhcp4-server kea-common
+
+# 3. Eliminar config por defecto
+echo "Limpiando configuración antigua..."
+rm /etc/kea/kea-dhcp4.conf
+
+# 4. Descargar tu config desde GitHub
+echo "Descargando configuración personalizada..."
+wget $ENLACE_RAW -O /etc/kea/kea-dhcp4.conf
+
+# 5. Reiniciar servicio
+echo "Reiniciando servidor..."
+systemctl restart kea-dhcp4-server
+systemctl status kea-dhcp4-server --no-pager
