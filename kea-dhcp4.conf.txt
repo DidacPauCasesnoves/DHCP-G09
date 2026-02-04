@@ -1,0 +1,49 @@
+{
+"Dhcp4": {
+    "interfaces-config": {
+        "interfaces": ["eth0"]
+    },
+    "control-socket": {
+        "socket-type": "unix",
+        "socket-name": "/run/kea/kea4-ctrl-socket"
+    },
+    "lease-database": {
+        "type": "memfile",
+        "lfc-interval": 3600
+    },
+    "valid-lifetime": 600,
+    "max-valid-lifetime": 7200,
+    "subnet4": [
+        {
+            "comment": "Xarxa Administracio (VLAN 3324)",
+            "id": 1,
+            "subnet": "10.18.50.192/27",
+            "pools": [
+                { "pool": "10.18.50.201 - 10.18.50.222" }
+            ],
+            "option-data": [
+                { "name": "routers", "data": "10.18.50.194" },
+                { "name": "domain-name-servers", "data": "8.8.8.8, 1.1.1.1" }
+            ],
+            "reservations": [
+                {
+                    "hw-address": "bc:24:11:e6:f6:b4",
+                    "ip-address": "10.18.50.200"
+                }
+            ]
+        },
+        {
+            "comment": "Intranet (VLAN 3323) - Via Relay",
+            "id": 2,
+            "subnet": "10.18.50.160/27",
+            "pools": [
+                { "pool": "10.18.50.166 - 10.18.50.190" }
+            ],
+            "option-data": [
+                { "name": "routers", "data": "10.18.50.161" },
+                { "name": "domain-name-servers", "data": "8.8.8.8, 1.1.1.1" }
+            ]
+        }
+    ]
+}
+}
